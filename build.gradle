@@ -1,0 +1,41 @@
+buildscript {
+    repositories {
+        maven {
+            name 'jenkins'
+            delegate.url('http://maven.jenkins-ci.org/content/repositories/releases/')
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.jenkins-ci.tools:gradle-jpi-plugin:0.4.0'
+    }
+}
+
+apply plugin: 'jpi'
+apply plugin: 'idea'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy-all:1.8.6'
+    testCompile 'org.spockframework:spock-core:0.6-groovy-1.8'
+    jenkinsTest 'org.jenkins-ci.plugins:ant:1.1@jar',
+                'org.jenkins-ci.plugins:javadoc:1.0@jar'
+}
+
+group = 'org.jenkins-ci.plugins'
+version = '0.0.1-SNAPSHOT'
+description = 'A description of your plugin'
+
+jenkinsPlugin {
+    coreVersion = '1.475'
+    displayName = 'Hello World plugin built with Gradle'
+    url = 'https://wiki.jenkins-ci.org/display/JENKINS/SomePluginPage'
+    gitHubUrl = 'https://github.com/jenkinsci/some-plugin'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.2'
+}
